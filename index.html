@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Chess Engine</title>
+</head>
+<body>
+
+<div id="container">
+    <section id="game"></section>
+</div>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/board.js"></script>
+<script src="js/movement.js"></script>
+<script src="js/script.js"></script>
+<script src="js/interface.js"></script>
+
+
+<style>
+
+    body {
+        background:grey;
+    }
+
+
+    #container{
+        width:400px;
+        height:400px;
+        margin:100px auto;
+        background: #3A3C3D;
+        border:1px solid #232729;
+        padding:20px;
+    }
+
+    #game{
+        width:400px;
+        height:400px;
+    }
+
+    #game .square {
+        width: 50px;
+        height: 50px;
+        background:#EBEFF1;
+        float:left;
+        position:relative;
+        /*border-left:1px solid #ffffff;*/
+        /*border-top:1px solid #ffffff;*/
+    }
+
+    #game .square.black {
+        background:#96B2C2;
+        /*border-right:1px solid #4d758b;*/
+        /*border-bottom:1px solid #4d758b;*/
+        /*border-top:none;*/
+        /*border-left:none;*/
+    }
+
+    .piece {
+        position: absolute;
+        height:50px;
+        width:50px;
+        z-index:20;
+    }
+
+    #game .square .highlight{
+        position:absolute;
+        top:0;
+        left:0;
+        width:50px;
+        height:50px;
+        z-index:1;
+    }
+    #game .square .highlight.active{
+        background:rgb(226,227,71);
+    }
+
+    #game .square .highlight.legal{
+        background:rgba(226,227,71,0.3);
+    }
+    .piece.p7 { /*white Pawn*/
+        background:url('./img/sprites.png') 0 0;
+    }.piece.p6 {/*white knight*/
+        background:url('./img/sprites.png') -50px 0px;
+    }.piece.p5 {/*white bishop*/
+        background:url('./img/sprites.png') -100px 0;
+    }.piece.p4 {/*white rook*/
+        background:url('./img/sprites.png') -150px 0;
+    }.piece.p3 {/*white queen*/
+        background:url('./img/sprites.png') -200px 0;
+    }.piece.p1 {/*white king*/
+        background:url('./img/sprites.png') -250px 0;
+    }
+
+    .piece.p17 { /*black Pawn*/
+        background:url('./img/sprites.png') 0 -50px;
+    }.piece.p16 {/**black knight*/
+         background:url('./img/sprites.png') -50px -50px;
+     }.piece.p15 {/**black bishop*/
+          background:url('./img/sprites.png') -100px -50px;
+      }.piece.p14 {/**black rook*/
+           background:url('./img/sprites.png') -150px -50px;
+       }.piece.p13 {/**black queen*/
+            background:url('./img/sprites.png') -200px -50px;
+        }.piece.p11 {/**black king*/
+             background:url('./img/sprites.png') -250px -50px;
+         }
+
+
+
+
+</style>
+</body>
+</html>
