@@ -22,6 +22,8 @@ G.CheckMove = function(player, opponent, previous_square, current_square, curren
         if(castleCheck(previous_square, current_square)){
             G.board[G.castling[0]] = 0;
             G.board[G.castling[1]]  = G.castling[2];
+
+            console.log('Castling')
         }
     }
 
@@ -98,26 +100,32 @@ G.CheckMove = function(player, opponent, previous_square, current_square, curren
         //Determine if the king has moved two spaces in either direction,
         //if so return new Rook position.
 
+
+        console.log(newPos)
         //WK
         if(prevPos == 24){
-            if(newPos == 22)//KS
-                G.castling = [21,23, 3];//old pos, new pos, piece
+            if(newPos == 22) {//KS
+                G.castling = [21, 23, 3];//old pos, new pos, piece
                 return true;
+            }
 
-            if(newPos == 26)//QS
+            if(newPos == 26){//QS
                 G.castling = [28,25, 3];
                 return true;
+            }
         }
 
         //BK
         if(prevPos == 94){
-            if(newPos == 92)//KS
-                G.castling = [91,93, 13];
+            if(newPos == 92) {//KS
+                G.castling = [91, 93, 13];
                 return true;
+            }
 
-            if(newPos == 95)//QS
-                G.castling = [98,96, 13];
+            if(newPos == 96) {//QS
+                G.castling = [98, 95, 13];
                 return true;
+            }
         }
 
         return false;
