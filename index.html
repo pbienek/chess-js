@@ -13,10 +13,14 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/board.js"></script>
+<script src="js/underscore.min.js"></script>
+<script src="js/game.js"></script>
 <script src="js/movement.js"></script>
-<script src="js/script.js"></script>
+<script src="js/checkMove.js"></script>
 <script src="js/interface.js"></script>
+<script>
+
+</script>
 
 
 <style>
@@ -80,32 +84,32 @@
     #game .square .highlight.legal{
         background:rgba(226,227,71,0.3);
     }
-    .piece.p7 { /*white Pawn*/
-        background:url('./img/sprites.png') 0 0;
-    }.piece.p6 {/*white knight*/
-        background:url('./img/sprites.png') -50px 0px;
-    }.piece.p5 {/*white bishop*/
-        background:url('./img/sprites.png') -100px 0;
-    }.piece.p4 {/*white rook*/
-        background:url('./img/sprites.png') -150px 0;
-    }.piece.p3 {/*white queen*/
-        background:url('./img/sprites.png') -200px 0;
+    .piece.p6 { /*white Pawn*/
+        background:url('img/sprites.png') 0 0;
+    }.piece.p5 {/*white knight*/
+        background:url('img/sprites.png') -50px 0px;
+    }.piece.p4 {/*white bishop*/
+        background:url('img/sprites.png') -100px 0;
+    }.piece.p3 {/*white rook*/
+        background:url('img/sprites.png') -150px 0;
+    }.piece.p2 {/*white queen*/
+        background:url('img/sprites.png') -200px 0;
     }.piece.p1 {/*white king*/
-        background:url('./img/sprites.png') -250px 0;
+        background:url('img/sprites.png') -250px 0;
     }
 
-    .piece.p17 { /*black Pawn*/
-        background:url('./img/sprites.png') 0 -50px;
-    }.piece.p16 {/**black knight*/
-         background:url('./img/sprites.png') -50px -50px;
-     }.piece.p15 {/**black bishop*/
-          background:url('./img/sprites.png') -100px -50px;
-      }.piece.p14 {/**black rook*/
-           background:url('./img/sprites.png') -150px -50px;
-       }.piece.p13 {/**black queen*/
-            background:url('./img/sprites.png') -200px -50px;
+    .piece.p16 { /*black Pawn*/
+        background:url('img/sprites.png') 0 -50px;
+    }.piece.p15 {/**black knight*/
+         background:url('img/sprites.png') -50px -50px;
+     }.piece.p14 {/**black bishop*/
+          background:url('img/sprites.png') -100px -50px;
+      }.piece.p13 {/**black rook*/
+           background:url('img/sprites.png') -150px -50px;
+       }.piece.p12 {/**black queen*/
+            background:url('img/sprites.png') -200px -50px;
         }.piece.p11 {/**black king*/
-             background:url('./img/sprites.png') -250px -50px;
+             background:url('img/sprites.png') -250px -50px;
          }
 
 

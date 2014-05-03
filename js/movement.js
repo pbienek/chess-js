@@ -1,44 +1,45 @@
+//This script determines rules of movement
 
-
-function validMoves(pos, piece){
+G.Movement = function(player, opponent, pos, piece){
     var validMoves = [];
 
+
     switch (piece) {
-        case 7://PW
+        case 6://PW
             PawnW();
             break;
-        case 17://PB
+        case 16://PB
             PawnB();
             break;
 
 
-        case 6:
+        case 5:
             Knight();
-            break;
-        case (16):
-            Knight();
-            break;
-
-
-        case (5):
-            Bishop();
             break;
         case (15):
+            Knight();
+            break;
+
+
+        case (4):
+            Bishop();
+            break;
+        case (14):
             Bishop();
             break;
 
 
-        case(4):
+        case(3):
             Rook();
             break;
-        case(14):
+        case(13):
             Rook();
             break;
 
-        case(3):
+        case(2):
             Queen();
             break;
-        case(13):
+        case(12):
             Queen();
             break;
 
@@ -60,21 +61,21 @@ function validMoves(pos, piece){
     //Pawn Moves //////////////////////////////////////////////////////////////////
     function PawnW(){
         //Check one space ahead
-        if(board[(pos + 10)] == 0){
+        if(G.board[(pos + 10)] == 0){
             validMoves.push(pos + 10);
         }
 
         //If not moved, check 2 spaces ahead
-        if(pos < 39 && board[(pos + 20)] == 0){
+        if(pos < 39 && G.board[(pos + 20)] == 0){
             validMoves.push(pos + 20);
         }
 
         //check if enemy is in position (left)
-        if(board[(pos + 11)] > 10){
+        if(G.board[(pos + 11)] > 10){
             validMoves.push(pos + 11);
         }
         //(right)
-        if(board[(pos + 9)] > 10){
+        if(G.board[(pos + 9)] > 10){
             validMoves.push(pos + 9);
         }
     }
@@ -83,21 +84,21 @@ function validMoves(pos, piece){
 
     function PawnB(){
         //Check one space ahead
-        if(board[(pos - 10)] == 0){
+        if(G.board[(pos - 10)] == 0){
             validMoves.push(pos-10);
         }
 
         //If not moved, check 2 spaces ahead
-        if(pos > 80 && board[(pos - 20)] == 0){
+        if(pos > 80 && G.board[(pos - 20)] == 0){
             validMoves.push(pos - 20);
         }
 
         //check if enemy is in position (left)
-        if(board[(pos - 9)] < 10 && board[(pos - 9)] > 0){
+        if(G.board[(pos - 9)] < 10 && G.board[(pos - 9)] > 0){
             validMoves.push(pos - 9);
         }
         //(right)
-        if(board[(pos - 11)] < 10 && board[(pos - 11)] > 0){
+        if(G.board[(pos - 11)] < 10 && G.board[(pos - 11)] > 0){
             validMoves.push(pos - 11);
         }
     }
@@ -123,18 +124,18 @@ function validMoves(pos, piece){
         for(var i = 1; i < 9; i++){
             var p = (pos + (11 * i));
 
-            if(board[p] == 0 && invalids.indexOf(p) < 0){
+            if(G.board[p] == 0 && G.invalids.indexOf(p) < 0){
                 validMoves.push(p);
             } else {
                 var x = p;
 
-                if(player == 'white' && board[p] < 10 && board[p] > 0){
+                if(player == 'white' && G.board[p] < 10 && G.board[p] > 0){
                     if((p - 11) != pos){
                         break;
                     }
                 }
 
-                if(player == 'black' && board[piece] > 10){
+                if(player == 'black' && G.board[piece] > 10){
                     if((p - 11) != pos){
                         break;
                     }
@@ -149,17 +150,17 @@ function validMoves(pos, piece){
         //Forward,right
         for(var i = 1; i < 9; i++){
             var p = (pos + (9 * i));
-            if(board[p] == 0 && invalids.indexOf(p) < 0){
+            if(G.board[p] == 0 && G.invalids.indexOf(p) < 0){
                 validMoves.push(p);
             } else {
                 var x = p;
 
-                if(player == 'white' && board[p] < 10 && board[p] > 0){
+                if(player == 'white' && G.board[p] < 10 && G.board[p] > 0){
                     if((p - 9) != pos){
                         x = (p - 9);
                     }
                 }
-                if(player == 'black' && board[piece] > 10){
+                if(player == 'black' && G.board[piece] > 10){
                     if((p - 9) != pos){
                         x = (p - 9);
                     }
@@ -173,17 +174,17 @@ function validMoves(pos, piece){
         //Back,right
         for(var i = 1; i < 9; i++){
             var p = (pos - (11 * i));
-            if(board[p] == 0 && invalids.indexOf(p) < 0){
+            if(G.board[p] == 0 && G.invalids.indexOf(p) < 0){
                 validMoves.push(p);
             } else {
                 var x = p;
 
-                if(player == 'white' && board[p] < 10 && board[p] > 0){
+                if(player == 'white' && G.board[p] < 10 && G.board[p] > 0){
                     if((p + 11) != pos){
                         break;
                     }
                 }
-                if(player == 'black' && board[piece] > 10){
+                if(player == 'black' && G.board[piece] > 10){
                     if((p + 11) != pos){
                         break;
                     }
@@ -198,16 +199,16 @@ function validMoves(pos, piece){
         //Back,left
         for(var i = 1; i < 9; i++){
             var p = (pos - (9 * i));
-            if(board[p] == 0 && invalids.indexOf(p) < 0){
+            if(G.board[p] == 0 && G.invalids.indexOf(p) < 0){
                 validMoves.push(p);
             } else {
                 var x = p;
-                if(player == 'white' && board[p] < 10 && board[p] > 0){
+                if(player == 'white' && G.board[p] < 10 && G.board[p] > 0){
                     if((p - 9) != pos){
                         break;
                     }
                 }
-                if(player == 'black' && board[piece] > 10){
+                if(player == 'black' && G.board[piece] > 10){
                     if((p - 9) != pos){
                         break;
                     }
@@ -229,18 +230,18 @@ function validMoves(pos, piece){
         for(var i = 1; i < 9; i++){
             var p = (pos + i);
 
-            if(board[p] == 0 && invalids.indexOf(p) < 0){
+            if(G.board[p] == 0 && G.invalids.indexOf(p) < 0){
                 validMoves.push(p);
             } else {
                 var x = p;
 
-                if(player == 'white' && board[p] < 10 && board[p] > 0){
+                if(player == 'white' && G.board[p] < 10 && G.board[p] > 0){
                     if((p - 11) != pos){
                         break;
                     }
                 }
 
-                if(player == 'black' && board[piece] > 10){
+                if(player == 'black' && G.board[piece] > 10){
                     if((p - 11) != pos){
                         break;
                     }
@@ -255,17 +256,17 @@ function validMoves(pos, piece){
         //right
         for(var i = 1; i < 9; i++){
             var p = (pos - i);
-            if(board[p] == 0 && invalids.indexOf(p) < 0){
+            if(G.board[p] == 0 && G.invalids.indexOf(p) < 0){
                 validMoves.push(p);
             } else {
                 var x = p;
 
-                if(player == 'white' && board[p] < 10 && board[p] > 0){
+                if(player == 'white' && G.board[p] < 10 && G.board[p] > 0){
                     if((p - 9) != pos){
                         x = (p - 9);
                     }
                 }
-                if(player == 'black' && board[piece] > 10){
+                if(player == 'black' && G.board[piece] > 10){
                     if((p - 9) != pos){
                         x = (p - 9);
                     }
@@ -279,17 +280,17 @@ function validMoves(pos, piece){
         //Up
         for(var i = 1; i < 9; i++){
             var p = (pos - (10 * i));
-            if(board[p] == 0 && invalids.indexOf(p) < 0){
+            if(G.board[p] == 0 && G.invalids.indexOf(p) < 0){
                 validMoves.push(p);
             } else {
                 var x = p;
 
-                if(player == 'white' && board[p] < 10 && board[p] > 0){
+                if(player == 'white' && G.board[p] < 10 && G.board[p] > 0){
                     if((p + 11) != pos){
                         break;
                     }
                 }
-                if(player == 'black' && board[piece] > 10){
+                if(player == 'black' && G.board[piece] > 10){
                     if((p + 11) != pos){
                         break;
                     }
@@ -304,16 +305,16 @@ function validMoves(pos, piece){
         //Down
         for(var i = 1; i < 9; i++){
             var p = (pos + (10 * i));
-            if(board[p] == 0 && invalids.indexOf(p) < 0){
+            if(G.board[p] == 0 && G.invalids.indexOf(p) < 0){
                 validMoves.push(p);
             } else {
                 var x = p;
-                if(player == 'white' && board[p] < 10 && board[p] > 0){
+                if(player == 'white' && G.board[p] < 10 && G.board[p] > 0){
                     if((p - 9) != pos){
                         break;
                     }
                 }
-                if(player == 'black' && board[piece] > 10){
+                if(player == 'black' && G.board[piece] > 10){
                     if((p - 9) != pos){
                         break;
                     }
@@ -339,45 +340,77 @@ function validMoves(pos, piece){
 
 
     //KING
-    function King(){
+    function King() {
         //Up
-        if(board[(pos + 10)] == 0){
+        if (G.board[(pos + 10)] == 0 || G.pieces[opponent].indexOf(G.board[(pos + 10)]) > -1) {
             validMoves.push(pos + 10);
         }
 
         //Up,right
-        if(board[(pos + 9)] == 0){
+        if (G.board[(pos + 9)] == 0 || G.pieces[opponent].indexOf(G.board[(pos + 9)]) > -1) {
             validMoves.push(pos + 9);
         }
 
         //Right
-        if(board[(pos - 1)] == 0){
+        if (G.board[(pos - 1)] == 0 || G.pieces[opponent].indexOf(G.board[(pos - 1)]) > -1) {
             validMoves.push(pos - 1);
         }
 
         //Right,down
-        if(board[(pos - 11)] == 0){
+        if (G.board[(pos - 11)] == 0 || G.pieces[opponent].indexOf(G.board[(pos -11)]) > -1) {
             validMoves.push(pos - 11);
         }
 
         //Down
-        if(board[(pos - 10)] == 0){
+        if (G.board[(pos - 10)] == 0 || G.pieces[opponent].indexOf(G.board[(pos - 10)]) > -1) {
             validMoves.push(pos - 10);
         }
 
         //Down,left
-        if(board[(pos - 9)] == 0){
+        if (G.board[(pos - 9)] == 0 || G.pieces[opponent].indexOf(G.board[(pos -9)]) > -1) {
             validMoves.push(pos - 9);
         }
 
         //Left
-        if(board[(pos + 1)] == 0){
+        if (G.board[(pos + 1)] == 0 || G.pieces[opponent].indexOf(G.board[(pos + 1)]) > -1) {
             validMoves.push(pos + 1);
         }
 
         //Left,up
-        if(board[(pos + 11)] == 0){
+        if (G.board[(pos + 11)] == 0 || G.pieces[opponent].indexOf(G.board[(pos + 11)]) > -1) {
             validMoves.push(pos + 11);
+        }
+
+
+        //Castle king side
+        if (G.cant_castle.indexOf(piece) == -1) {
+
+            //White King
+            if (piece == 1){
+                //king side
+                if(G.board[22] == 0 && G.board[23] == 0 && G.rooks_moved.indexOf(21) == -1){
+                    validMoves.push(22);
+                }
+                //Queen side
+                if(G.board[25] == 0 && G.board[26] == 0 && G.board[27] == 0 && G.rooks_moved.indexOf(28) == -1){
+                    validMoves.push(26);
+                }
+
+            }
+
+
+            //Black King
+            if (piece == 11){
+                //king side
+                if(G.board[93] == 0 && G.board[92] == 0 && G.rooks_moved.indexOf(91) == -1){
+                    validMoves.push(92);
+                }
+                //Queen side
+                if(G.board[95] == 0 && G.board[96] == 0 && G.board[97] == 0 && G.rooks_moved.indexOf(98) == -1){
+                    validMoves.push(96);
+                }
+
+            }
         }
 
     }
@@ -387,29 +420,31 @@ function validMoves(pos, piece){
 
 
     //Remove any invalid moves. /////////////////////////////////////////////////////////////
-    removeInvalids();
     function removeInvalids(){
         var v = validMoves.length;
         while(v--){
             var piece = validMoves[v];
-            if(invalids.indexOf(piece) > -1){
+            if(G.invalids.indexOf(piece) > -1){
                 validMoves.splice(v,1);
             }
 
-            if(player == 'white' && board[piece] < 10 && board[piece] > 0){
+            if(player == 'white' && G.board[piece] < 10 && G.board[piece] > 0){
                 validMoves.splice(v,1);
             }
 
-            if(player == 'black' && board[piece] > 10){
+            if(player == 'black' && G.board[piece] > 10){
                 validMoves.splice(v,1);
             }
         }
     }
 
 
+    removeInvalids();
+
     return validMoves;
 
-}
+};
+
 
 
 
