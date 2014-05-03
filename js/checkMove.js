@@ -101,22 +101,22 @@ G.CheckMove = function(player, opponent, previous_square, current_square, curren
         //WK
         if(prevPos == 24){
             if(newPos == 22)//KS
-                G.castling = [21,23, 4];//old pos, new pos, piece
+                G.castling = [21,23, 3];//old pos, new pos, piece
                 return true;
 
             if(newPos == 26)//QS
-                G.castling = [28,25, 4];
+                G.castling = [28,25, 3];
                 return true;
         }
 
         //BK
         if(prevPos == 94){
             if(newPos == 92)//KS
-                G.castling = [91,93, 14];
+                G.castling = [91,93, 13];
                 return true;
 
             if(newPos == 95)//QS
-                G.castling = [98,96, 14];
+                G.castling = [98,96, 13];
                 return true;
         }
 
