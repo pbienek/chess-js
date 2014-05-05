@@ -45,6 +45,31 @@ G.Interface = {
 
         $('.piece').on('click', function(){
 
+
+
+            //castling info
+            console.log(G.castling)
+            console.log(G.cant_castle)
+            console.log(G.rooks_moved)
+
+
+            console.log(G.promotion )
+
+
+            console.log(G.check     )
+            console.log(G.check_mate)
+            console.log(G.stale_mate)
+
+
+            console.log(G.score  = 0)
+
+
+
+
+
+
+
+
             current_square = $(this).data('psquare');
 
 
@@ -86,11 +111,12 @@ G.Interface = {
                 if(check){
 
                     G.Finalise(check);
+                    G.Interface.movePiece(previous_square, current_square);
 
-                    var gameData = clone(check);
-                    G.AI(gameData);
-
-                    G.Interface.movePiece(previous_square, current_square)
+                    setTimeout(function(){
+                        var gameData = clone(check);
+                        G.AI(gameData);
+                    },500);
 
                 }
             }
@@ -111,12 +137,12 @@ G.Interface = {
                 if(check){
 
                     G.Finalise(check);
+                    G.Interface.movePiece(previous_square, current_square);
 
-                    var gameData = clone(check);
-                    G.AI(gameData);
-
-
-                    G.Interface.movePiece(previous_square, current_square)
+                    setTimeout(function(){
+                        var gameData = clone(check);
+                        G.AI(gameData);
+                    },500);
 
                 }
             }

@@ -7,8 +7,8 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
     var new_game_state = {
         board       : board.slice(0),
         castling    : false,
-        c_castle    : G.cant_castle,
-        rooks_moved : G.rooks_moved,
+        c_castle    : [],
+        rooks_moved : [],
         promotion   : false,
         players     : nextTurn(player)
     };
@@ -149,6 +149,8 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
 
         //check if rook has moved
         if(piece == G.pieces[player][2] && G.rooks_moved.indexOf(prepos) == -1){
+
+            console.log('Rooks Moved', piece)
             new_game_state.rooks_moved.push(prepos);
         }
 

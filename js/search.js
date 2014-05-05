@@ -7,8 +7,6 @@ G.Search = function(game_state){
     var player_pieces      = findPieces(player);
     var possible_positions = boardPositions();
 
-
-
     return possible_positions;
 
 
