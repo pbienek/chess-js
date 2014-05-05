@@ -51,14 +51,53 @@ G.init = function(){
     //Promotion
     this.promotion = false;
 
+    //Game states
+    this.check      = false;
+    this.check_mate = false;
+    this.stale_mate = false;
 
 
+    //The players score
+    this.score  = 0;
 
 
 };
 
 window.addEventListener('load', function() {
     G.init();
-    G.Interface();
+
+    G.Interface.boardSetup(G.board);
+    G.Interface.playerMove();
 });
+
+
+function clone(obj) {
+    var outpurArr = new Array();
+    for (var i in obj) {
+        outpurArr[i] = typeof (obj[i]) == 'object' ? this.clone(obj[i]) : obj[i];
+    }
+    return outpurArr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

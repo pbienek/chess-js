@@ -7,9 +7,9 @@
 </head>
 <body>
 
-<div id="container">
-    <section id="game"></section>
-</div>
+<section id="game">
+    <div id="board"></div>
+</section>
 
 
 
@@ -18,7 +18,14 @@
 <script src="js/game.js"></script>
 <script src="js/movement.js"></script>
 <script src="js/checkMove.js"></script>
+<script src="js/finalise.js"></script>
+
+<script src="js/search.js"></script>
+<script src="js/evaluate.js"></script>
+<script src="js/ai.js"></script>
+
 <script src="js/interface.js"></script>
+<script src="js/canvasInterface.js"></script>
 <script>
 
 </script>
@@ -31,7 +38,7 @@
     }
 
 
-    #container{
+    #game{
         width:400px;
         height:400px;
         margin:100px auto;
@@ -40,12 +47,19 @@
         padding:20px;
     }
 
-    #game{
+    #pieces{
         width:400px;
         height:400px;
+        position:absolute;
     }
 
-    #game .square {
+    #board{
+        width:400px;
+        height:400px;
+        position:absolute;
+    }
+
+    #board .square {
         width: 50px;
         height: 50px;
         background:#EBEFF1;
@@ -55,7 +69,7 @@
         /*border-top:1px solid #ffffff;*/
     }
 
-    #game .square.black {
+    #board .square.black {
         background:#96B2C2;
         /*border-right:1px solid #4d758b;*/
         /*border-bottom:1px solid #4d758b;*/
@@ -68,21 +82,28 @@
         height:50px;
         width:50px;
         z-index:20;
+        transition: all 0.4s;
     }
 
-    #game .square .highlight{
+    .piece.active {
+        background-color:yellow;
+    }
+
+
+    #board .square .highlight{
         position:absolute;
         top:0;
         left:0;
         width:50px;
         height:50px;
         z-index:1;
+        transition: all 0.3s;
     }
-    #game .square .highlight.active{
+    #board .square .highlight.active{
         background:rgb(226,227,71);
     }
 
-    #game .square .highlight.legal{
+    #board .square .highlight.legal{
         background:rgba(226,227,71,0.3);
     }
     .piece.p6 { /*white Pawn*/
