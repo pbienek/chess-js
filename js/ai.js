@@ -1,16 +1,14 @@
 G.AI = function(game_data){
 
+    var game = game_data;
     var player           = G.player;
     var opponent         = G.opponent;
     var current_score    = G.EvaluateBoard(G.board, G.player, G.opponent);
-    var moves            = G.Search(game_data);
+    var moves            = G.Search(game);
     var sorted_positions = evaluate_moves(moves, player, opponent);
-    var best_move        = getBest(sorted_positions);
 
 
     var best_pos         = getBest(sorted_positions);
-
-
 
 
     G.Finalise(best_pos.state);
@@ -52,18 +50,22 @@ G.AI = function(game_data){
     //Compare best position to score of opponents best response, if best is lower try next move
     function getBest(positions){
 
-        var better_moves = [];
         var equal_moves  = [];
         var worse_moves  = [];
+        var best         = {
+            move  : null,
+            score : 0
+        };
 
         for(var i = 0; i < positions.length; i++){
 
-            var player_score = positions[i].score;
-            var opps_score   = opponentsResponse(positions, i);
+            var player_score = (positions[i].score - current_score);
+            var opps_score   = (opponentsResponse(positions, i) - current_score);
             var gain         = (player_score - opps_score);
 
-            if(gain > 0){
-                better_moves.push(positions[i].move);
+            if(gain > 0 && gain > best.score){
+                best.move  = positions[i].move;
+                best.score = gain;
             }
 
             if(gain == 0){
@@ -75,9 +77,8 @@ G.AI = function(game_data){
             }
         }
 
-        if(better_moves.length > 0){
-            var sorted =  better_moves.sort();
-            return sorted[0];
+        if(best.score > 0){
+            return best.move;
         }
 
         if(equal_moves.length > 0){
@@ -88,9 +89,11 @@ G.AI = function(game_data){
         }
 
         else {
-            return worse_moves[0];
+            var y    = worse_moves.length;
+            var rndm = Math.floor((Math.random() * y));
+
+            return worse_moves[rndm];
         }
-        //return best_move;
     }
 
 
@@ -102,47 +105,45 @@ G.AI = function(game_data){
         var player          = best_move.players.player;
         var opponent        = best_move.players.opponent;
         var opponents_moves = evaluate_moves(G.Search(best_move), player, opponent);
-//
-        console.log('------------------')
-//        console.log(opponents_moves)
+
 
 
         return (opponents_moves[0].score);
 
-//
-//
-//        return {
-//            player   : my_positions[i].score,
-//            opponent : opponents_moves[0].score
-//        };
     }
-
-
-
-
-
-
-//
-//
-//
-//
-//
-
-//
-//
-
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -58,7 +58,10 @@ G.init = function(){
 
 
     //The players score
-    this.score  = 0;
+    this.scores  = {
+        white : 0,
+        black : 0
+    };
 
 
 };

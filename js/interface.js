@@ -46,22 +46,22 @@ G.Interface = {
         $('.piece').on('click', function(){
 
 
-
-            //castling info
-            console.log(G.castling)
-            console.log(G.cant_castle)
-            console.log(G.rooks_moved)
-
-
-            console.log(G.promotion )
-
-
-            console.log(G.check     )
-            console.log(G.check_mate)
-            console.log(G.stale_mate)
-
-
-            console.log(G.score  = 0)
+//
+//            //castling info
+//            console.log(G.castling)
+//            console.log(G.cant_castle)
+//            console.log(G.rooks_moved)
+//
+//
+//            console.log(G.promotion )
+//
+//
+//            console.log(G.check     )
+//            console.log(G.check_mate)
+//            console.log(G.stale_mate)
+//
+//
+//            console.log(G.score  = 0)
 
 
 
