@@ -34,7 +34,7 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
             new_game_state.board[new_game_state.castling[0]] = 0;
             new_game_state.board[new_game_state.castling[1]]  = new_game_state.castling[2];
 
-            console.log('Castling')
+            //console.log('Castling')
         }
     }
 
@@ -90,7 +90,7 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
 
         if(attacked_squares.indexOf(king_position) > -1) {
 
-            console.log('King Attacked');
+            //console.log('King Attacked');
 
             return true;
 
@@ -150,7 +150,7 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
         //check if rook has moved
         if(piece == G.pieces[player][2] && G.rooks_moved.indexOf(prepos) == -1){
 
-            console.log('Rooks Moved', piece);
+            //console.log('Rooks Moved', piece);
             new_game_state.rooks_moved.push(prepos);
         }
 
@@ -158,10 +158,10 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
 
         //todo Check for pawn promotion
         if(piece == 6 && pos > 90){
-            console.log('Promotion')
+            //console.log('Promotion')
         }
         if(piece == 16 && pos < 30){
-            console.log('Promotion')
+            //console.log('Promotion')
         }
 
 

@@ -48,81 +48,102 @@ G.AI = function(game_data){
 
 
     //Compare best position to score of opponents best response, if best is lower try next move
-    function getBest(positions){
+    function getBest(positions) {
 
-        var equal_moves  = [];
-        var worse_moves  = [];
-        var best         = {
-            move  : null,
-            score : 0,
-
-            osc   : 0,
-            gain : 0
-        };
+        var best_score = -100;
+        var sorted_positions = [];
 
 
         var i = positions.length;
-        while(i--){
+        while (i--) {
+            var opp_move = opponentsResponse(positions[i]).move.state.board;
+            var opps_score = G.EvaluateBoard(opp_move, player, opponent) - current_score;
 
-            var player_score = positions[i].score - current_score;
-            var opp_move     = opponentsResponse(positions[i]).move.state.board;
-            var opps_score   = G.EvaluateBoard(opp_move, player, opponent) - current_score;
-            var gain         = (player_score - opps_score);
 
-            console.log(player_score, opps_score);
+            if (opps_score > best_score) {
 
-            if(opps_score >= current_score && opps_score > best.score){
-                console.log('test')
-                best.move  = positions[i].move;
-                best.score = player_score;
-                best.osc   = opps_score;
-                best.gain  = gain;
+                best_score = opps_score;
+                sorted_positions.unshift({
+                    move: positions[i].move,
+                    score: opps_score
+                });
+
+            } else {
+
+                sorted_positions.push({
+                    move: positions[i].move,
+                    score: opps_score
+                });
             }
 
-            if(opps_score == 0){
-
-                var x = {
-                    move  : positions[i].move,
-                    score : player_score,
-                    osc   : opps_score,
-                    gain  : gain
-                }
-                equal_moves.push(x);
-            }
-
-            else {
-
-                var x = {
-                    move  : positions[i].move,
-                    score : player_score,
-                    osc   : opps_score,
-                    gain  : gain
-                }
-                worse_moves.push(x);
-            }
         }
 
+        var b = sorted_positions.length;
 
+        if (sorted_positions[0].score == sorted_positions[(b - 1)].score) {
 
-        if(best.score > 0){
-            console.log('BEST', best)
-            return best.move;
-        }
+            var rnd = Math.floor((Math.random() * b));
+            console.log('average', sorted_positions)
 
-        if(equal_moves.length > 0){
-            var x   = equal_moves.length;
-            var rnd = Math.floor((Math.random() * x));
-            console.log('equal', equal_moves[rnd])
-            return equal_moves[rnd].move;
-        }
+            return sorted_positions[rnd].move;
 
-        else {
-            var y    = worse_moves.length;
-            var rndm = Math.floor((Math.random() * y));
-            console.log('worsed', equal_moves[rnd])
-            return worse_moves[rndm].move;
+        } else {
+            console.log('BEST', sorted_positions)
+            return sorted_positions[0].move;
+
         }
     }
+
+
+//            if(opps_score > current_score && opps_score > best.score){
+//                console.log('test')
+//                best.move  = positions[i].move;
+//                best.score = player_score;
+//                best.osc   = opps_score
+//            }
+//
+//            if(opps_score == current_score){
+//
+//                var x = {
+//                    move  : positions[i].move,
+//                    score : player_score,
+//                    osc   : opps_score
+//                }
+//                equal_moves.push(x);
+//            }
+//
+//            else {
+//
+//                var x = {
+//                    move  : positions[i].move,
+//                    score : player_score,
+//                    osc   : opps_score
+//                }
+//                worse_moves.push(x);
+//            }
+//        }
+
+
+
+//        if(best.score > current_score){
+//            console.log('BEST', best)
+//            return best.move;
+//        }
+//
+//        if(equal_moves.length > 0){
+//            var x   = equal_moves.length;
+//            var rnd = Math.floor((Math.random() * x));
+//            console.log('equal', equal_moves[rnd])
+//            return equal_moves[rnd].move;
+//        }
+//
+//        else {
+//            var y    = worse_moves.length;
+//            var rndm = Math.floor((Math.random() * y));
+//            console.log('worsed', equal_moves[rnd])
+//            return worse_moves[rndm].move;
+//        }
+
 
 
 
