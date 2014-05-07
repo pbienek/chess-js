@@ -31,31 +31,65 @@ G.EvaluateBoard = function(board, player, opponent){
 
 
     //Assign value to piece
-    function pieceScore(piece){
+    function pieceScore(piece) {
 
-        if(piece == 6 || piece == 16){
+        if(piece == 6 || piece == 16) {
             return 1;
         }
 
-        if(piece == 5 || piece == 15){
+        if(piece == 5 || piece == 15) {
             return 3;
         }
 
-        if(piece == 4 || piece == 14){
+        if(piece == 4 || piece == 14) {
             return 3;
         }
 
-        if(piece == 3 || piece == 13){
+        if(piece == 3 || piece == 13) {
             return 5;
         }
 
-        if(piece == 2 || piece == 12){
+        if(piece == 2 || piece == 12) {
             return 9;
         }
 
-        if(piece == 1 || piece == 11){
+        if(piece == 1 || piece == 11) {
             return 1000;
         }
+    }
+
+
+
+
+    function positionalScore(piece, square) {
+
+        if(piece == 6 || piece == 16) {
+            return 1;
+        }
+
+        if(piece == 5 || piece == 15) {
+            return 3;
+        }
+
+        if(piece == 4 || piece == 14) {
+            return 3;
+        }
+
+        if(piece == 3 || piece == 13) {
+            return 5;
+        }
+
+        if(piece == 2 || piece == 12) {
+            return 9;
+        }
+
+        if(piece == 1 || piece == 11) {
+            return 1000;
+        }
+
+
+
+
     }
 
 

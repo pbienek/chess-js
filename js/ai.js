@@ -25,22 +25,18 @@ G.AI = function(game_data){
             var board    = positions[i].state.board;
             var score    = G.EvaluateBoard(board, player, opponent);
 
-            if(score > best_score){
-
-                best_score = score;
-                sorted_positions.unshift({
-                    move  : positions[i],
-                    score : score
-                });
-
-            } else {
-
-                sorted_positions.push({
-                    move  : positions[i],
-                    score : score
-                });
-            }
+            best_score = score;
+            sorted_positions.push({
+                move  : positions[i],
+                score : score
+            });
         }
+
+        //sort array by best to worst scores
+        sorted_positions.sort(function(a, b){
+            return b.score - a.score;
+        });
+
 
         return sorted_positions;
     }
@@ -50,33 +46,27 @@ G.AI = function(game_data){
     //Compare best position to score of opponents best response, if best is lower try next move
     function getBest(positions) {
 
-        var best_score = -100;
         var sorted_positions = [];
 
-
+        //Run through possible moves and get opponents response scores
         var i = positions.length;
         while (i--) {
             var opp_move = opponentsResponse(positions[i]).move.state.board;
             var opps_score = G.EvaluateBoard(opp_move, player, opponent) - current_score;
 
-
-            if (opps_score > best_score) {
-
-                best_score = opps_score;
-                sorted_positions.unshift({
-                    move: positions[i].move,
-                    score: opps_score
-                });
-
-            } else {
-
-                sorted_positions.push({
-                    move: positions[i].move,
-                    score: opps_score
-                });
-            }
+            sorted_positions.push({
+                move: positions[i].move,
+                score: opps_score
+            });
 
         }
+
+        //sort array by best to worst scores
+        sorted_positions.sort(function(a, b){
+            return b.score - a.score;
+        });
+
+
 
         var b = sorted_positions.length;
 
@@ -94,55 +84,6 @@ G.AI = function(game_data){
         }
     }
 
-
-//            if(opps_score > current_score && opps_score > best.score){
-//                console.log('test')
-//                best.move  = positions[i].move;
-//                best.score = player_score;
-//                best.osc   = opps_score
-//            }
-//
-//            if(opps_score == current_score){
-//
-//                var x = {
-//                    move  : positions[i].move,
-//                    score : player_score,
-//                    osc   : opps_score
-//                }
-//                equal_moves.push(x);
-//            }
-//
-//            else {
-//
-//                var x = {
-//                    move  : positions[i].move,
-//                    score : player_score,
-//                    osc   : opps_score
-//                }
-//                worse_moves.push(x);
-//            }
-//        }
-
-
-
-//        if(best.score > current_score){
-//            console.log('BEST', best)
-//            return best.move;
-//        }
-//
-//        if(equal_moves.length > 0){
-//            var x   = equal_moves.length;
-//            var rnd = Math.floor((Math.random() * x));
-//            console.log('equal', equal_moves[rnd])
-//            return equal_moves[rnd].move;
-//        }
-//
-//        else {
-//            var y    = worse_moves.length;
-//            var rndm = Math.floor((Math.random() * y));
-//            console.log('worsed', equal_moves[rnd])
-//            return worse_moves[rndm].move;
-//        }
 
 
 
