@@ -34,7 +34,7 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
             new_game_state.board[new_game_state.castling[0]] = 0;
             new_game_state.board[new_game_state.castling[1]]  = new_game_state.castling[2];
 
-            console.log('Castling');
+            console.log('Castling')
         }
     }
 
