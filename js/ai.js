@@ -1,5 +1,7 @@
 G.AI = function(game_data){
 
+    console.log(game_data)
+
     var game = game_data;
     var player           = G.player;
     var opponent         = G.opponent;

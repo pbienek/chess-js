@@ -33,60 +33,59 @@ G.EvaluateBoard = function(board, player, opponent){
     //Assign value to piece
     function pieceScore(piece) {
 
+        //Pawn
         if(piece == 6 || piece == 16) {
-            return 1;
+            return 100;
         }
 
+        //Knight
         if(piece == 5 || piece == 15) {
-            return 3;
+            return 300;
         }
 
+        //Bishop
         if(piece == 4 || piece == 14) {
-            return 3;
+            return 310;
         }
 
+        //Rook
         if(piece == 3 || piece == 13) {
-            return 5;
+            return 500;
         }
 
+        //Queen
         if(piece == 2 || piece == 12) {
-            return 9;
+            return 900;
         }
 
+        //King
         if(piece == 1 || piece == 11) {
-            return 1000;
+            return 10000;
         }
     }
 
 
 
 
-    function positionalScore(piece, square) {
+    function pawnPositionalScore(square) {
 
-        if(piece == 6 || piece == 16) {
-            return 1;
-        }
+        var board = [
+            //0,   1, 2, 3, 4, 5, 6, 7, 8, 9
+            0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  //0
+            0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  //1
 
-        if(piece == 5 || piece == 15) {
-            return 3;
-        }
+            0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  //2
+            0, 90,90,90,90,90,90,90,90, 0,  //3
+            0, 50,50,50,50,50,50,50,50, 0,  //4
+            0, 40,40,40,40,40,40,40,40, 0,  //5
+            0, 30,30,30,30,30,30,30,30, 0,  //6
+            0, 20,20,20,20,20,20,20,20, 0,  //7
+            0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  //8
+            0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  //9
 
-        if(piece == 4 || piece == 14) {
-            return 3;
-        }
-
-        if(piece == 3 || piece == 13) {
-            return 5;
-        }
-
-        if(piece == 2 || piece == 12) {
-            return 9;
-        }
-
-        if(piece == 1 || piece == 11) {
-            return 1000;
-        }
-
+            0, 0, 0, 0, 0, 0, 0, 0, 0,  0,  //10
+            0, 0, 0, 0, 0, 0, 0, 0, 0,  0   //11
+        ];
 
 
 

@@ -2,18 +2,19 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
 
 
 
-    var current_piece = board[previous_square];
+    var current_piece    = board[previous_square];
+
 
     var new_game_state = {
         board       : board.slice(0),
         castling    : false,
-        c_castle    : [],
-        rooks_moved : [],
+        c_castle    : clone(G.cant_castle),
+        rooks_moved : clone(G.rooks_moved),
         promotion   : false,
         players     : nextTurn(player)
     };
 
-
+    var attacked_squares = attackedSquares(new_game_state.board, player, opponent);
 
 
     //update new_game_state.board
@@ -33,8 +34,6 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
         if(castleCheck(previous_square, current_square)){
             new_game_state.board[new_game_state.castling[0]] = 0;
             new_game_state.board[new_game_state.castling[1]]  = new_game_state.castling[2];
-
-            //console.log('Castling')
         }
     }
 
@@ -84,7 +83,7 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
 
     function kingCheck() {
         //Run through all of opponents legal moves and if they attack king return false
-        var attacked_squares = attackedSquares();
+
         var king_position = new_game_state.board.indexOf(G.pieces[player][0]);
 
 
@@ -130,7 +129,7 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
                 return true;
             }
 
-            if(newPos == 96) {//QS
+            if(newPos == 96 && attacked_squares.indexOf(96) == -1) {//QS
                 new_game_state.castling = [98, 95, 13];
                 return true;
             }
