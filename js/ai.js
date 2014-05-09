@@ -11,8 +11,9 @@ G.AI = function(){
 
 
     console.log(ii);
-    G.Finalise(best_pos);
-    G.Interface.movePiece(best_pos.previous_move.ps, best_pos.previous_move.cs);
+
+    //Once we're all done, we pass the choose game state off to this interface
+    G.Interface.movePiece(best_pos, best_pos.previous_move.ps, best_pos.previous_move.cs);
 
 
 

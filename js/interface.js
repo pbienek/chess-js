@@ -86,11 +86,10 @@ G.Interface = {
                 var new_state = G.checkMove(previous_square, current_square, G.S);
                 if(new_state){
 
-                    G.Finalise(new_state);
-                    G.Interface.movePiece(previous_square, current_square);
+                    G.Interface.movePiece(new_state, previous_square, current_square);
 
                     setTimeout(function(){
-                        var gameData = clone(new_state);
+                        var gameData = new_state;
                         G.AI(gameData);
                     },500);
 
@@ -112,11 +111,10 @@ G.Interface = {
                 var new_state = G.checkMove(previous_square, current_square, G.S);
                 if(new_state){
 
-                    G.Finalise(new_state);
-                    G.Interface.movePiece(previous_square, current_square);
+                    G.Interface.movePiece(new_state, previous_square, current_square);
 
                     setTimeout(function(){
-                        var gameData = clone(new_state);
+                        var gameData = new_state;
                         G.AI(gameData);
                     },500);
 
@@ -127,7 +125,7 @@ G.Interface = {
 
 
 
-    movePiece : function(previous_square, current_square){
+    movePiece : function(state, previous_square, current_square){
 
         //remove piece for current square and next
         $('[data-psquare='+current_square+']').fadeOut(300, function(){
@@ -137,8 +135,25 @@ G.Interface = {
         reposition(previous_square, current_square);
 
 
-        if(G.S.castling){
+        if(state.castling){
             reposition(G.S.castling[0], G.S.castling[1]);
+        }
+
+
+        if(state.promotion){
+            promote(state.promotion.pos, state.promotion.colour)
+        }
+
+
+        function promote(sqr, colour){
+
+            $('[data-psquare='+sqr+']').fadeOut(200, function(){
+                $('[data-psquare='+sqr+']').removeClass().addClass( "piece p"+colour );
+                $('[data-psquare='+sqr+']').fadeIn(200)
+            })
+
+
+
         }
 
 
@@ -155,6 +170,8 @@ G.Interface = {
             $('.highlight').removeClass('active');
             $('.highlight').removeClass('legal');
         }
+
+        G.Finalise(state);
     }
 };
 
