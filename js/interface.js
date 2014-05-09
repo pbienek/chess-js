@@ -136,7 +136,7 @@ G.Interface = {
 
 
         if(state.castling){
-            reposition(G.S.castling[0], G.S.castling[1]);
+            reposition(state.castling[0], state.castling[1]);
         }
 
 
