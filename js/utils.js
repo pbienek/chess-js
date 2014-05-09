@@ -1,5 +1,17 @@
 G.Utils = {
 
+    boardHash : function(board){
+        var hash = '';
+        var i    = board.length;
+
+        while(i--){
+            hash += board[i];
+        }
+
+        return hash;
+    },
+
+
 
     attackedSquares : function (state) {
         var player   = state.player;
@@ -32,6 +44,7 @@ G.Utils = {
     },
 
 
+
     opponent : function(player){
         if(player === 'white') {
             return 'black';
@@ -41,8 +54,8 @@ G.Utils = {
     },
 
 
-    cloneState : function(state){
 
+    cloneState : function(state){
 
         var new_object = {
             player      : state.player,
@@ -66,7 +79,6 @@ G.Utils = {
         };
 
         return new_object;
-
     }
 
 
@@ -81,18 +93,3 @@ function clone(obj) {
     }
     return outputArr;
 }
-
-
-
-
-
-
-//function clone(obj) {
-//    var target = {};
-//    for (var i in obj) {
-//        if (obj.hasOwnProperty(i)) {
-//            target[i] = obj[i];
-//        }
-//    }
-//    return target;
-//}

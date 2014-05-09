@@ -53,6 +53,7 @@ G.checkMove = function(previous_square, current_square, state){
     //update NEW_GAME_STATE.board
     NEW_GAME_STATE.board[previous_square] = 0;
     NEW_GAME_STATE.board[current_square]  = current_piece;
+    NEW_GAME_STATE.attacked_squares = G.Utils.attackedSquares(NEW_GAME_STATE);
 
 
     if(kingCheck()){
@@ -119,11 +120,11 @@ G.checkMove = function(previous_square, current_square, state){
     function kingCheck() {
         //Run through all of opponents legal moves and if they attack king return false
         var king_position    = NEW_GAME_STATE.board.indexOf(G.pieces[player][0]);
-        var attacked_squares = G.Utils.attackedSquares(NEW_GAME_STATE);
+
 
         //console.log(attacked_squares)
 
-        return (attacked_squares.indexOf(king_position) > -1);
+        return (NEW_GAME_STATE.attacked_squares.indexOf(king_position) > -1);
     }
 
 

@@ -12,7 +12,6 @@ G.Search = function(state){
 
 
 
-
     //Find positions of all players pieces
     function findPieces(player){
 
@@ -33,7 +32,6 @@ G.Search = function(state){
 
         return pieces;
     }
-
 
 
 
@@ -65,6 +63,7 @@ G.Search = function(state){
                 }
             }
         }
+
 
 
         return board_positions;

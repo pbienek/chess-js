@@ -1,19 +1,21 @@
 G.AI = function(){
 
+    var ii = 0;
     var current_state    = G.S;
     var player           = G.S.player;
     var opponent         = G.Utils.opponent(player);
     var current_score    = G.EvaluateBoard(current_state, player);
     var moves            = G.Search(G.S);
-
-
     var sorted_positions = evaluate_moves(moves, player);
+    var best_pos         = getBestMove(sorted_positions);
 
-    var best_pos         = getBest(sorted_positions);
 
 
+    console.log(ii);
     G.Finalise(best_pos);
     G.Interface.movePiece(best_pos.previous_move.ps, best_pos.previous_move.cs);
+
+
 
     //Evaluate array of possible positions and return ordered array best to worsed
     function evaluate_moves(states, player) {
@@ -22,7 +24,7 @@ G.AI = function(){
         var i = states.length;
         while(i--){
             var score    = G.EvaluateBoard(states[i], player);
-
+            ii++;
             sorted_states.push({
                 move  : states[i],
                 score : score
@@ -41,7 +43,7 @@ G.AI = function(){
 
 
     //Compare best position to score of opponents best response, if best is lower try next move
-    function getBest(states) {
+    function getBestMove(states) {
 
         var sorted_states = [];
 
@@ -80,7 +82,6 @@ G.AI = function(){
         } else {
             console.log('BEST', sorted_states)
             return sorted_states[0].move;
-
         }
     }
 
