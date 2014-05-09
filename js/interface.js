@@ -3,7 +3,7 @@ G.Interface = {
     boardSetup: function () {
         //Draw the board
 
-        var i = G.board.length;
+        var i = G.S.board.length;
         var square_count = 0;
         var colours = ['black', 'white'];
         var x = 0;
@@ -23,12 +23,12 @@ G.Interface = {
 
                 square_count++;
 
-                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
-//                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i + '"><b>'+i+'</b><div class="highlight"></div></div>');              //For debugging
+//                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
+                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i + '"><b>'+i+'</b><div class="highlight"></div></div>');              //For debugging
 
-                if(G.board[i] > 0){
+                if(G.S.board[i] > 0){
                     var pos = $('[data-square='+ i +']').position();
-                    $('#board').append('<div  style="top:'+pos.top+'px; left:'+pos.left+'px;" data-psquare="'+i+'" data-piece="' + G.board[i] + '" class="piece p' + G.board[i] + '"></div>');
+                    $('#board').append('<div  style="top:'+pos.top+'px; left:'+pos.left+'px;" data-psquare="'+i+'" data-piece="' + G.S.board[i] + '" class="piece p' + G.S.board[i] + '"></div>');
                 }
             }
         }
@@ -46,36 +46,12 @@ G.Interface = {
 
         $('.piece').on('click', function(){
 
-
-//
-//            //castling info
-//            console.log(G.castling)
-//            console.log(G.cant_castle)
-//            console.log(G.rooks_moved)
-//
-//
-//            console.log(G.promotion )
-//
-//
-//            console.log(G.check     )
-//            console.log(G.check_mate)
-//            console.log(G.stale_mate)
-//
-//
-//            console.log(G.score  = 0)
-
-
-
-
-
-
-
-
             current_square = $(this).data('psquare');
 
 
             //Check if friendly piece
-            if(G.pieces[G.player].indexOf($(this).data('piece')) > -1){
+            if(G.pieces[G.S.player].indexOf($(this).data('piece')) > -1){
+
 
                 current_piece  = $(this).data('piece');
                 previous_square = current_square;
@@ -87,35 +63,34 @@ G.Interface = {
 
 
                 //check the right pieces are being selected
-                if(G.pieces[G.player].indexOf(current_piece) > -1){
+                if(G.pieces[G.S.player].indexOf(current_piece) > -1){
 
                     //Highlight current selection
                     $('[data-square='+current_square+']').children('.highlight').addClass('active');
 
                     //Highlight legal moves
-                    legal_squares = G.Movement(G.player, G.opponent, current_square, current_piece, G.board);
+                    //var as = G.Utils.attackedSquares(G.S.player, G.S.board);
+                    legal_squares = G.Movement(current_square, G.S);
+
                     var ls = legal_squares.length;
                     while(ls--){
                         $('[data-square='+legal_squares[ls]+']').children('.highlight').addClass('legal');
                     }
                 }
 
-                //Check for second click and legal move
-                if(legal_squares.indexOf(current_square) > -1){
-                    console.log('testing tgisd')
-                }
             }
 
-
+            //Check for second click and legal move
             if(legal_squares.indexOf(current_square) > -1){
-                var check = G.checkMove(G.player, G.opponent, previous_square, current_square, G.board);
-                if(check){
 
-                    G.Finalise(check);
+                var new_state = G.checkMove(previous_square, current_square, G.S);
+                if(new_state){
+
+                    G.Finalise(new_state);
                     G.Interface.movePiece(previous_square, current_square);
 
                     setTimeout(function(){
-                        var gameData = clone(check);
+                        var gameData = clone(new_state);
                         G.AI(gameData);
                     },500);
 
@@ -134,14 +109,14 @@ G.Interface = {
             if(legal_squares.indexOf(current_square) > -1){
 
 
-                var check = G.checkMove(G.player, G.opponent, previous_square, current_square, G.board);
-                if(check){
+                var new_state = G.checkMove(previous_square, current_square, G.S);
+                if(new_state){
 
-                    G.Finalise(check);
+                    G.Finalise(new_state);
                     G.Interface.movePiece(previous_square, current_square);
 
                     setTimeout(function(){
-                        var gameData = clone(check);
+                        var gameData = clone(new_state);
                         G.AI(gameData);
                     },500);
 
@@ -162,8 +137,8 @@ G.Interface = {
         reposition(previous_square, current_square);
 
 
-        if(G.castling){
-            reposition(G.castling[0], G.castling[1]);
+        if(G.S.castling){
+            reposition(G.S.castling[0], G.S.castling[1]);
         }
 
 
@@ -176,7 +151,7 @@ G.Interface = {
             $('[data-psquare='+previous_square+']').attr('data-psquare',current_square);
 
             //clear and reset
-            legal_squares = [];
+//            legal_squares = [];
             $('.highlight').removeClass('active');
             $('.highlight').removeClass('legal');
         }

@@ -1,11 +1,12 @@
-G.Search = function(game_state){
+G.Search = function(state){
     "use strict";
 
-    var board              = game_state.board;
-    var player             = game_state.players['player'];
-    var opponent           = game_state.players['opponent'];
+    var board              = state.board;
+    var player             = state.player;
+    var opponent           = G.Utils.opponent(player);
     var player_pieces      = findPieces(player);
     var possible_positions = boardPositions();
+    var attacked_sqs       = state.attacked_squares;
 
     return possible_positions;
 
@@ -23,7 +24,7 @@ G.Search = function(game_state){
                 var move_info = {
                     pos   : i,
                     piece :board[i],
-                    moves : G.Movement(player, opponent, i, board[i], board)
+                    moves : G.Movement(i, state)
                 };
 
                 pieces.push(move_info);
@@ -55,15 +56,11 @@ G.Search = function(game_state){
                     //var tmpBoard        = board;
                     var previous_square = player_pieces[i]['pos'];
                     var current_square  = player_pieces[i]['moves'][m];
-                    var tmp_state       = G.checkMove(player, opponent, previous_square, current_square, board);
+                    var tmp_state       = G.checkMove(previous_square, current_square, state);
 
                     //If legal move, add to list of possible positions
                     if(tmp_state){
-                        board_positions.push({
-                            prev_sq  : previous_square,
-                            cur_sq   : current_square,
-                            state    : tmp_state
-                        });
+                        board_positions.push(tmp_state);
                     }
                 }
             }

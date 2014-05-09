@@ -1,80 +1,115 @@
-G.checkMove = function(player, opponent, previous_square, current_square, board){
+G.checkMove = function(previous_square, current_square, state){
 
 
-
+    var player           = state.player;
+    var opponent         = G.Utils.opponent(player);
+    var board            = state.board;
     var current_piece    = board[previous_square];
 
 
-    var new_game_state = {
-        board       : board.slice(0),
-        castling    : false,
-        c_castle    : clone(G.cant_castle),
-        rooks_moved : clone(G.rooks_moved),
-        promotion   : false,
-        players     : nextTurn(player)
+    var NEW_GAME_STATE = clone(state);
+
+    NEW_GAME_STATE.castling = false;
+    NEW_GAME_STATE.previous_move = {
+        ps    : previous_square,
+        cs    : current_square,
+        piece : state.board[previous_square]
     };
 
-    var attacked_squares = attackedSquares(new_game_state.board, player, opponent);
 
 
-    //update new_game_state.board
-    new_game_state.board[previous_square] = 0;
-    new_game_state.board[current_square]  = current_piece;
+//    {
+//        board       : board.slice(0),
+//        castling    : false,
+//        c_castle    : clone(G.cant_castle),
+//        rooks_moved : clone(G.rooks_moved),
+//        promotion   : false,
+//        players     : nextTurn(player)
+//    };
+
+
+//    var NEW_GAME_STATE = {
+//        player      : opponent,
+//        board       : board,
+//        scores      : state.scores,
+//        castling    : false,
+//        cant_castle : state.cant_castle,
+//        rooks_moved : state.rooks_moved,
+//        check      : false,
+//        check_mate : false,
+//        stale_mate : false,
+//        promotion  : false,
+//        legal_moves      : [],
+//        attacked_squares : [],
+//        previous_move : {
+//            ps: previous_square,
+//            cs: current_square,
+//            piece: state.board[previous_square]
+//        }
+//    };
+
+
+
+    //update NEW_GAME_STATE.board
+    NEW_GAME_STATE.board[previous_square] = 0;
+    NEW_GAME_STATE.board[current_square]  = current_piece;
+
 
     if(kingCheck()){
-        new_game_state.board[previous_square] = current_piece;
-        new_game_state.board[current_square]  = 0;
+
+        NEW_GAME_STATE.board[previous_square] = current_piece;
+        NEW_GAME_STATE.board[current_square]  = 0;
 
         return false;
     }
 
 
     if(current_piece == 1 || current_piece == 11){
+
         //check if castled and move piece;
         if(castleCheck(previous_square, current_square)){
-            new_game_state.board[new_game_state.castling[0]] = 0;
-            new_game_state.board[new_game_state.castling[1]]  = new_game_state.castling[2];
+            NEW_GAME_STATE.board[NEW_GAME_STATE.castling[0]] = 0;
+            NEW_GAME_STATE.board[NEW_GAME_STATE.castling[1]] = NEW_GAME_STATE.castling[2];
         }
     }
-
 
 
     postMove(previous_square, current_square, current_piece);
+    NEW_GAME_STATE.player = opponent;
 
-
-    return new_game_state;
+    return NEW_GAME_STATE;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    function attackedSquares(){
-
-        var squares = [];
-
-        var s = new_game_state.board.length;
-        //for each square
-        while(s--){
-
-            //if square isn't empty
-            if(new_game_state.board[s] > 0){
-
-                var piece = new_game_state.board[s];
-                //run through all of opponents pieces
-                var p = G.pieces[opponent].length;
-                while(p--){
-                    //if the piece matches opponents, and their legal moves to the
-                    if(piece == G.pieces[opponent][p]){
-                        var moves = G.Movement(opponent,player,s, piece, new_game_state.board);
-                        squares = squares.concat(moves);
-                        break;
-                    }
-                }
-
-            }
-
-        }
-
-        return _.uniq(squares);
-    }
+//    function attackedSquares(){
+//
+//        var squares = [];
+//
+//        var s = NEW_GAME_STATE.board.length;
+//        //for each square
+//        while(s--){
+//
+//            //if square isn't empty
+//            if(NEW_GAME_STATE.board[s] > 0){
+//
+//                var piece = NEW_GAME_STATE.board[s];
+//                //run through all of opponents pieces
+//                var p = G.pieces[opponent].length;
+//                while(p--){
+//                    //if the piece matches opponents, and their legal moves to the
+//                    if(piece == G.pieces[opponent][p]){
+//                        var moves = G.Movement(opponent,player,s, piece, NEW_GAME_STATE.board);
+//                        squares = squares.concat(moves);
+//                        break;
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//
+//        return _.uniq(squares);
+//    }
 
 
 
@@ -83,22 +118,12 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
 
     function kingCheck() {
         //Run through all of opponents legal moves and if they attack king return false
+        var king_position    = NEW_GAME_STATE.board.indexOf(G.pieces[player][0]);
+        var attacked_squares = G.Utils.attackedSquares(NEW_GAME_STATE);
 
-        var king_position = new_game_state.board.indexOf(G.pieces[player][0]);
+        //console.log(attacked_squares)
 
-
-        if(attacked_squares.indexOf(king_position) > -1) {
-
-            //console.log('King Attacked');
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
-
+        return (attacked_squares.indexOf(king_position) > -1);
     }
 
 
@@ -107,17 +132,15 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
         //Determine if the king has moved two spaces in either direction,
         //if so return new Rook position.
 
-
-
         //WK
         if(prevPos == 24){
             if(newPos == 22) {//KS
-                new_game_state.castling = [21, 23, 3];//old pos, new pos, piece
+                NEW_GAME_STATE.castling = [21, 23, 3];//old pos, new pos, piece
                 return true;
             }
 
             if(newPos == 26){//QS
-                new_game_state.castling = [28,25, 3];
+                NEW_GAME_STATE.castling = [28,25, 3];
                 return true;
             }
         }
@@ -125,12 +148,12 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
         //BK
         if(prevPos == 94){
             if(newPos == 92) {//KS
-                new_game_state.castling = [91, 93, 13];
+                NEW_GAME_STATE.castling = [91, 93, 13];
                 return true;
             }
 
-            if(newPos == 96 && attacked_squares.indexOf(96) == -1) {//QS
-                new_game_state.castling = [98, 95, 13];
+            if(newPos == 96 && state.attacked_squares.indexOf(96) == -1) {//QS
+                NEW_GAME_STATE.castling = [98, 95, 13];
                 return true;
             }
         }
@@ -140,17 +163,20 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
 
 
     function postMove(prepos, pos, piece){
+
+
+
         //check if king has moved
-        if(piece == G.pieces[player][0] && G.cant_castle.indexOf(piece) == -1) {
-            new_game_state.c_castle.push(piece)
+        if(piece == G.pieces[player][0] && state.cant_castle.indexOf(piece) == -1) {
+            NEW_GAME_STATE.cant_castle.push(piece)
         }
 
 
         //check if rook has moved
-        if(piece == G.pieces[player][2] && G.rooks_moved.indexOf(prepos) == -1){
+        if(piece == G.pieces[player][2] && state.rooks_moved.indexOf(prepos) == -1){
 
             //console.log('Rooks Moved', piece);
-            new_game_state.rooks_moved.push(prepos);
+            NEW_GAME_STATE.rooks_moved.push(prepos);
         }
 
 
@@ -170,11 +196,6 @@ G.checkMove = function(player, opponent, previous_square, current_square, board)
 
         return true;
     }
-
-
-
-
-
 
 
     function nextTurn(player){
