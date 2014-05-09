@@ -4,10 +4,10 @@ G.checkMove = function(previous_square, current_square, state){
     var player           = state.player;
     var opponent         = G.Utils.opponent(player);
     var board            = state.board;
-    var current_piece    = board[previous_square];
+    var current_piece    = state.board[previous_square];
 
 
-    var NEW_GAME_STATE = clone(state);
+    var NEW_GAME_STATE = G.Utils.cloneState(state);
 
     NEW_GAME_STATE.castling = false;
     NEW_GAME_STATE.previous_move = {

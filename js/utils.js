@@ -38,7 +38,38 @@ G.Utils = {
         } else {
             return 'white';
         }
+    },
+
+
+    cloneState : function(state){
+
+
+        var new_object = {
+            player      : state.player,
+            board       : state.board.slice(0),
+            scores      : state.scores,
+            castling    : state.castling,
+            cant_castle : state.cant_castle.slice(0),
+            rooks_moved : state.rooks_moved.slice(0),
+            check       : state.check,
+            check_mate  : state.check_mate,
+            stale_mate  : state.stale_mate,
+            promotion   : state.promotion,
+            legal_moves      : state.legal_moves.slice(0),
+            attacked_squares : state.attacked_squares.slice(0),
+            previous_move : {
+                ps: state.previous_move.ps,
+                cs: state.previous_move.cs,
+                piece: state.previous_move.piece
+            }
+
+        };
+
+        return new_object;
+
     }
+
+
 };
 
 
@@ -50,3 +81,18 @@ function clone(obj) {
     }
     return outputArr;
 }
+
+
+
+
+
+
+//function clone(obj) {
+//    var target = {};
+//    for (var i in obj) {
+//        if (obj.hasOwnProperty(i)) {
+//            target[i] = obj[i];
+//        }
+//    }
+//    return target;
+//}
