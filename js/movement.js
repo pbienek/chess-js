@@ -394,6 +394,7 @@ G.Movement = function(pos, state, alt_player){
             //White King
             if (piece == 1){
                 //king side
+                console.trace(attacked_squares)
                 if(board[22] == 0 && board[23] == 0 && state.rooks_moved.indexOf(21) == -1){
                     //check to see if squares are attacked
                     if(attacked_squares.indexOf(22) == -1 && attacked_squares.indexOf(23) == -1 && attacked_squares.indexOf(24) == -1){

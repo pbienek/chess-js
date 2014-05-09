@@ -10,7 +10,6 @@ G.AI = function(){
     var best_pos         = getBestMove(sorted_positions);
 
 
-
     console.log(ii);
     G.Finalise(best_pos);
     G.Interface.movePiece(best_pos.previous_move.ps, best_pos.previous_move.cs);
