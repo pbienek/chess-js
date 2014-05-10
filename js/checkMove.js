@@ -188,8 +188,8 @@ G.checkMove = function(previous_square, current_square, state){
             NEW_GAME_STATE.board[pos] = 2;
         }
         if(piece == 16 && pos < 30){
-            NEW_GAME_STATE.promotion  = pos;
-            NEW_GAME_STATE.board[pos] = { pos: pos, colour : 12};
+            NEW_GAME_STATE.promotion  = { pos: pos, colour : 12};
+            NEW_GAME_STATE.board[pos] = 12;
         }
 
 
