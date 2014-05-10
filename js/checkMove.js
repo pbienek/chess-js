@@ -82,40 +82,6 @@ G.checkMove = function(previous_square, current_square, state){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//    function attackedSquares(){
-//
-//        var squares = [];
-//
-//        var s = NEW_GAME_STATE.board.length;
-//        //for each square
-//        while(s--){
-//
-//            //if square isn't empty
-//            if(NEW_GAME_STATE.board[s] > 0){
-//
-//                var piece = NEW_GAME_STATE.board[s];
-//                //run through all of opponents pieces
-//                var p = G.pieces[opponent].length;
-//                while(p--){
-//                    //if the piece matches opponents, and their legal moves to the
-//                    if(piece == G.pieces[opponent][p]){
-//                        var moves = G.Movement(opponent,player,s, piece, NEW_GAME_STATE.board);
-//                        squares = squares.concat(moves);
-//                        break;
-//                    }
-//                }
-//
-//            }
-//
-//        }
-//
-//        return _.uniq(squares);
-//    }
-
-
-
-
-
 
     function kingCheck() {
         //Run through all of opponents legal moves and if they attack king return false

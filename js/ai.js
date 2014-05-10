@@ -19,6 +19,7 @@ G.AI = function(){
 
     //Evaluate array of possible positions and return ordered array best to worsed
     function evaluate_moves(states, player) {
+
         var sorted_states = [];
 
         var i = states.length;
@@ -51,7 +52,22 @@ G.AI = function(){
         var i = states.length;
 
         while (i--) {
-            var opp_move   = opponentsResponse(states[i]).move;
+
+            var opp_move  = opponentsResponse(states[i]).move;
+
+            //Check for checkmate
+            if(!opp_move) {
+
+                states[i].move.check_mate = true;
+
+                sorted_states.push({
+                    move: states[i].move,
+                    score: 1000000
+                });
+
+                break;
+            }
+
             var opps_score = G.EvaluateBoard(opp_move, player) - current_score;
 
             sorted_states.push({
@@ -95,6 +111,13 @@ G.AI = function(){
         var best_move       = state.move;
         var player          = best_move.player;
         var opponents_moves = evaluate_moves(G.Search(best_move), player);
+
+
+
+        if(opponents_moves.length == 0){
+
+            return false;
+        }
 
 
         return (opponents_moves[0]);

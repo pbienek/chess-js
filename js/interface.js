@@ -125,6 +125,7 @@ G.Interface = {
 
 
 
+
     movePiece : function(state, previous_square, current_square){
 
         //remove piece for current square and next
@@ -177,6 +178,15 @@ G.Interface = {
         }
 
         G.Finalise(state);
+    },
+
+
+
+
+    gameOver : function(){
+        setTimeout(function(){
+            $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
+        }, 1000);
     }
 };
 

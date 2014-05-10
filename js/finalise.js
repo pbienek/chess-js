@@ -1,6 +1,11 @@
 G.Finalise = function(state){
     "use strict";
 
+    if(state.check_mate){
+        G.GameOver(G.Utils.opponent(state.player));
+    }
+
+
 //    G.S = state;
     G.S.player      = state.player;
     G.S.board       = state.board;

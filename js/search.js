@@ -8,7 +8,12 @@ G.Search = function(state){
     var possible_positions = boardPositions();
     var attacked_sqs       = state.attacked_squares;
 
+
+
+
     return possible_positions;
+
+
 
 
 
