@@ -1,9 +1,8 @@
 G.EvaluateBoard = function(state, player){
 
     var position = state.board;
-
-    //var player   = state.player;
     var opponent = G.Utils.opponent(player);
+
 
 
 
@@ -114,7 +113,7 @@ G.EvaluateBoard = function(state, player){
             0,   0,  0,  0,  0,  0,  0,  0,  0,   0,  //1
 
 
-            0, -50,-20,-10,-10,-10,-10,-20,-50,   0,  //2
+            0, -50,-30,-10,-10,-10,-10,-20,-50,   0,  //2
             0, -30,  0,  0,  0,  0,  0,  0,-30,   0,  //3
             0, -20,  0, 10, 10, 10, 10,  0,-20,   0,  //4
             0, -20,  0, 20, 20, 20, 20,  0,-20,   0,  //5

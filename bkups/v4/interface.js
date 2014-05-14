@@ -23,8 +23,8 @@ G.Interface = {
 
                 square_count++;
 
-                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
-//                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i + '"><b>'+i+'</b><div class="highlight"></div></div>');              //For debugging
+//                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
+                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i + '"><b>'+i+'</b><div class="highlight"></div></div>');              //For debugging
 
                 if(G.S.board[i] > 0){
                     var pos = $('[data-square='+ i +']').position();

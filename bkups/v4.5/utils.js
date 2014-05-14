@@ -32,7 +32,7 @@ G.Utils = {
                 while (p--) {
                     //if the piece matches opponents, and their legal moves to the
                     if (piece == G.pieces[opponent][p]) {
-                        var moves = G.Movement(sq, state, opponent);
+                        var moves = G.Movement(sq, state.board, opponent);
                         squares = squares.concat(moves);
                         break;
                     }

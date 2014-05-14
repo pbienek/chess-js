@@ -23,8 +23,8 @@ G.Interface = {
 
                 square_count++;
 
-                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
-//                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i + '"><b>'+i+'</b><div class="highlight"></div></div>');              //For debugging
+//                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
+                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i + '"><b>'+i+'</b><div class="highlight"></div></div>');              //For debugging
 
                 if(G.S.board[i] > 0){
                     var pos = $('[data-square='+ i +']').position();
@@ -70,7 +70,7 @@ G.Interface = {
 
                     //Highlight legal moves
                     //var as = G.Utils.attackedSquares(G.S.player, G.S.board);
-                    legal_squares = G.Movement(current_square, G.S);
+                    legal_squares = G.Movement(current_square, G.S.board, G.S.player);
 
                     var ls = legal_squares.length;
                     while(ls--){
