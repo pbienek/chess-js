@@ -1,11 +1,11 @@
 //This script determines rules of movement
 
 G.Movement = function(pos, state, alt_player){
-
+//console.trace(alt_player)
     var player           = alt_player || state.player;
-    var board            = state.board;
-    var piece            = state.board[pos];
-    var attacked_squares = state.attacked_squares;
+    var board            = state;
+    var piece            = board[pos];
+    var attacked_squares = [];
 
     var validMoves       = [];
     var opponent         = G.Utils.opponent(player);
@@ -394,14 +394,14 @@ G.Movement = function(pos, state, alt_player){
             //White King
             if (piece == 1){
                 //king side
-                if(board[22] == 0 && board[23] == 0 && state.rooks_moved.indexOf(21) == -1){
+                if(board[22] == 0 && board[23] == 0 /*&& state.rooks_moved.indexOf(21) == -1*/){
                     //check to see if squares are attacked
                     if(attacked_squares.indexOf(22) == -1 && attacked_squares.indexOf(23) == -1 && attacked_squares.indexOf(24) == -1){
                         validMoves.push(22);
                     }
                 }
                 //Queen side
-                if(board[25] == 0 && board[26] == 0 && board[27] == 0 && state.rooks_moved.indexOf(28) == -1){
+                if(board[25] == 0 && board[26] == 0 && board[27] == 0 /*&& state.rooks_moved.indexOf(28) == -1*/){
                     //check to see if squares are attacked
                     if(attacked_squares.indexOf(24) == -1 && attacked_squares.indexOf(25) == -1 && attacked_squares.indexOf(26) == -1){
                         validMoves.push(26);
@@ -414,14 +414,14 @@ G.Movement = function(pos, state, alt_player){
             //Black King
             if (piece == 11){
                 //king side
-                if(board[93] == 0 && board[92] == 0 && state.rooks_moved.indexOf(91) == -1){
+                if(board[93] == 0 && board[92] == 0 /*&& state.rooks_moved.indexOf(91) == -1*/){
                     //check to see if squares are attacked
                     if(attacked_squares.indexOf(92) == -1 && attacked_squares.indexOf(93) == -1 && attacked_squares.indexOf(94) == -1){
                         validMoves.push(92);
                     }
                 }
                 //Queen side
-                if(board[95] == 0 && board[96] == 0 && board[97] == 0 && state.rooks_moved.indexOf(98) == -1){
+                if(board[95] == 0 && board[96] == 0 /*&& board[97] == 0 && state.rooks_moved.indexOf(98) == -1*/){
                     //check to see if squares are attacked
                     if(attacked_squares.indexOf(94) == -1 && attacked_squares.indexOf(95) == -1 && attacked_squares.indexOf(96) == -1){
                         validMoves.push(96);

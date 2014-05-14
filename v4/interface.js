@@ -23,8 +23,8 @@ G.Interface = {
 
                 square_count++;
 
-                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
-//                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i + '"><b>'+i+'</b><div class="highlight"></div></div>');              //For debugging
+//                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
+                $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i + '"><b>'+i+'</b><div class="highlight"></div></div>');              //For debugging
 
                 if(G.S.board[i] > 0){
                     var pos = $('[data-square='+ i +']').position();
@@ -86,11 +86,10 @@ G.Interface = {
                 var new_state = G.checkMove(previous_square, current_square, G.S);
                 if(new_state){
 
-                    G.Finalise(new_state);
-                    G.Interface.movePiece(previous_square, current_square);
+                    G.Interface.movePiece(new_state, previous_square, current_square);
 
                     setTimeout(function(){
-                        var gameData = clone(new_state);
+                        var gameData = new_state;
                         G.AI(gameData);
                     },500);
 
@@ -112,11 +111,10 @@ G.Interface = {
                 var new_state = G.checkMove(previous_square, current_square, G.S);
                 if(new_state){
 
-                    G.Finalise(new_state);
-                    G.Interface.movePiece(previous_square, current_square);
+                    G.Interface.movePiece(new_state, previous_square, current_square);
 
                     setTimeout(function(){
-                        var gameData = clone(new_state);
+                        var gameData = new_state;
                         G.AI(gameData);
                     },500);
 
@@ -127,7 +125,8 @@ G.Interface = {
 
 
 
-    movePiece : function(previous_square, current_square){
+
+    movePiece : function(state, previous_square, current_square){
 
         //remove piece for current square and next
         $('[data-psquare='+current_square+']').fadeOut(300, function(){
@@ -137,8 +136,30 @@ G.Interface = {
         reposition(previous_square, current_square);
 
 
-        if(G.S.castling){
-            reposition(G.S.castling[0], G.S.castling[1]);
+        if(state.castling){
+            reposition(state.castling[0], state.castling[1]);
+        }
+
+
+        if(state.promotion){
+            promote(state.promotion.pos, state.promotion.colour)
+        }
+
+
+        function promote(sqr, piece){
+
+            $('[data-psquare='+sqr+']').fadeOut(200, function(){
+                $('[data-psquare='+sqr+']').removeClass().addClass( "piece p"+piece );
+
+                $('[data-psquare='+sqr+']').data('piece', piece);
+                $('[data-psquare='+sqr+']').attr('data-piece', piece);
+
+                $('[data-psquare='+sqr+']').fadeIn(200);
+
+            })
+
+
+
         }
 
 
@@ -155,6 +176,17 @@ G.Interface = {
             $('.highlight').removeClass('active');
             $('.highlight').removeClass('legal');
         }
+
+        G.Finalise(state);
+    },
+
+
+
+
+    gameOver : function(){
+        setTimeout(function(){
+            $('#board').append('<div class="square ' + colours[x] + '" data-square="' + i +'"><div class="highlight"></div></div>');
+        }, 1000);
     }
 };
 

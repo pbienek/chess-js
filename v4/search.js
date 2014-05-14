@@ -1,7 +1,6 @@
 G.Search = function(state){
     "use strict";
 
-
     var board              = state.board;
     var player             = state.player;
     var opponent           = G.Utils.opponent(player);
@@ -9,7 +8,39 @@ G.Search = function(state){
     var possible_positions = boardPositions();
     var attacked_sqs       = state.attacked_squares;
 
+
+
+
+
     return possible_positions;
+
+
+
+
+    //Evaluate array of possible positions and return ordered array best to worsed
+    function evaluate_moves(states, player) {
+
+        var sorted_states = [];
+
+        var i = states.length;
+        while(i--){
+            var score    = G.EvaluateBoard(states[i], player);
+
+            sorted_states.push({
+                move  : states[i],
+                score : score
+            });
+        }
+
+        //sort array by best to worst scores
+        sorted_states.sort(function(a, b){
+            return b.score - a.score;
+        });
+
+
+        return sorted_states;
+    }
+
 
 
 
@@ -34,7 +65,6 @@ G.Search = function(state){
 
         return pieces;
     }
-
 
 
 
@@ -66,6 +96,7 @@ G.Search = function(state){
                 }
             }
         }
+
 
 
         return board_positions;

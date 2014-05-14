@@ -70,7 +70,7 @@ G.Interface = {
 
                     //Highlight legal moves
                     //var as = G.Utils.attackedSquares(G.S.player, G.S.board);
-                    legal_squares = G.Movement(current_square, G.S);
+                    legal_squares = G.Movement(current_square, G.S.board, G.S.player);
 
                     var ls = legal_squares.length;
                     while(ls--){

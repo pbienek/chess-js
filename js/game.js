@@ -2,6 +2,7 @@ G = function(){
     "use strict";
 };
 
+G.computerMove = {};
 
 G.init = function(){
 

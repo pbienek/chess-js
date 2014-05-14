@@ -1,24 +1,26 @@
 G.AI = function() {
 
     var ii = 0;
-    var current_state = G.S;
 
     var player = G.S.player;
+    var current_state = G.S;
+    var current_score = G.EvaluateBoard(current_state, player);
     var opponent = G.Utils.opponent(player);
-//    var best_pos = getBestMove();
-
-    var best_pos = G.Search(current_state);
+    var best_pos = getBestMove();
 
 
+
+    console.log('Positions evaluated ', ii);
 
 
     //Once we're all done, we pass the choosen game state off to this interface
     G.Interface.movePiece(best_pos, best_pos.previous_move.ps, best_pos.previous_move.cs);
 
+    var test_alpha = -100000;
 
     function getBestMove(){
-        var alpha      = -Infinity;
-        var beta       = Infinity;
+        var alpha      = -100000;
+        var beta       = 100000;
         var depth      = 2;
         var moves      = evaluate_moves(G.Search(current_state), player);
         var best_pos   = {};
@@ -27,7 +29,7 @@ G.AI = function() {
 
         var i = moves.length;
         while(i--){
-            var move_score = alphaBeta(moves[i].move, depth, alpha, beta, player);
+            var move_score = alphaBeta(moves[i].move, depth, alpha, beta, false);
 
             if(move_score > best_score) {
                 best_score = move_score;
@@ -50,22 +52,25 @@ G.AI = function() {
 
 
 
-    function alphaBeta(state, depth, alpha, beta, eval_player) {
-        var opponent = G.Utils.opponent(eval_player);
+    function alphaBeta(state, depth, alpha, beta, max_player) {
+        var opponent = G.Utils.opponent(player);
+
 
         if (depth == 0) {
             ii++;
-
-            return  G.EvaluateBoard(state, player);
+            var score = G.EvaluateBoard(state, player) - current_score;
+            //console.log(score)
+            return  score;
         }
 
-        if (eval_player == player) {
+        if (max_player) {
             var child_states = evaluate_moves(G.Search(state), player);
             var i = child_states.length;
 
             while (i--) {
 
-                alpha = alphaBeta(child_states[i].move, (depth - 1), alpha, beta, opponent);
+                alpha = Math.max(alpha, alphaBeta(child_states[i].move, (depth - 1), alpha, beta, false));
+
                 if (beta < alpha) {
                     break;
                 }
@@ -76,11 +81,11 @@ G.AI = function() {
 
         } else {
 
-            var child_states = evaluate_moves(G.Search(state), player);
+            var child_states = evaluate_moves(G.Search(state), opponent);
             var i = child_states.length;
 
             while (i--) {
-                beta = alphaBeta(child_states[i].move, (depth - 1), alpha, beta, eval_player);
+                beta = Math.min(beta, alphaBeta(child_states[i].move, (depth - 1), alpha, beta, true));
                 if (beta < alpha) {
                     break;
                 }

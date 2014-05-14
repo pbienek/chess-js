@@ -2,6 +2,7 @@ G = function(){
     "use strict";
 };
 
+G.computerMove = {};
 
 G.init = function(){
 
@@ -70,7 +71,9 @@ G.S = {
 
 
 
-
+G.GameOver = function(winner){
+    console.log("Game Over! "+winner+" wins!")
+};
 
 
 window.addEventListener('load', function() {

@@ -1,9 +1,10 @@
-G.EvaluateBoard = function(board, player){
+G.EvaluateBoard = function(state, player){
 
-    var position = board;
+    var position = state.board;
 
     //var player   = state.player;
     var opponent = G.Utils.opponent(player);
+
 
 
     return getScore();
