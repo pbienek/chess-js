@@ -148,13 +148,13 @@ G.Interface = {
 
         function promote(sqr, piece){
 
-            $('[data-psquare='+sqr+']').fadeOut(200, function(){
+            $('[data-psquare='+sqr+']').fadeOut(150, function(){
                 $('[data-psquare='+sqr+']').removeClass().addClass( "piece p"+piece );
 
                 $('[data-psquare='+sqr+']').data('piece', piece);
                 $('[data-psquare='+sqr+']').attr('data-piece', piece);
 
-                $('[data-psquare='+sqr+']').fadeIn(200);
+                $('[data-psquare='+sqr+']').fadeIn(150);
 
             })
 
