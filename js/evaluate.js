@@ -66,7 +66,7 @@ G.EvaluateBoard = function(state, player){
 
         //King
         if(piece == 1 || piece == 11) {
-            return 10000;
+            return 10000 + kingPositionalScore(position, piece);
         }
     }
 
@@ -139,9 +139,48 @@ G.EvaluateBoard = function(state, player){
     }
 
 
+    function kingPositionalScore(square, piece) {
+
+        var board = [
+            //0, 1,  2,  3,  4,  5,  6,  7,  8,    9
+            0,   0,  0,  0,  0,  0,  0,  0,  0,   0,  //0
+            0,   0,  0,  0,  0,  0,  0,  0,  0,   0,  //1
+
+
+            0,  30, 30, 10,-10,  0, 10, 30, 30,   0,  //2
+            0, -10,-10,-20,-20,-20,-20,-10,-10,   0,  //3
+            0,   0,  0,-30,-30,-30,-30,  0,  0,   0,  //4
+            0,   0,  0,  0,  0,  0,  0,  0,  0,   0,  //5
+            0,   0,  0,  0,  0,  0,  0,  0,  0,   0,  //6
+            0,   0,  0,  0,  0,  0,  0,  0,  0,   0,  //7
+            0,   0,  0,  0,  0,  0,  0,  0,  0,   0,  //8
+            0,   0,  0,  0,  0,  0,  0,  0,  0,   0,  //9
+
+
+            0,   0,  0,  0,  0,  0,  0,  0,  0,    0,  //10
+            0,   0,  0,  0,  0,  0,  0,  0,  0,    0   //11
+        ];
+
+        if(piece == 1){ //white
+
+            return board[square]
+
+        } else { //Black
+
+            return board.reverse()[square];
+        }
+    }
+
+
+
 
 
 };
+
+
+
+
+
 
 
 

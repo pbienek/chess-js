@@ -1,5 +1,4 @@
-G.checkMove = function(previous_square, current_square, state){
-
+G.checkMove = function(previous_square, current_square, state, king_check){
 
     var player           = state.player;
     var opponent         = G.Utils.opponent(player);
@@ -53,16 +52,22 @@ G.checkMove = function(previous_square, current_square, state){
     //update NEW_GAME_STATE.board
     NEW_GAME_STATE.board[previous_square] = 0;
     NEW_GAME_STATE.board[current_square]  = current_piece;
-    NEW_GAME_STATE.attacked_squares = G.Utils.attackedSquares(NEW_GAME_STATE);
 
 
-    if(kingCheck()){
+    if(king_check === true){
 
-        NEW_GAME_STATE.board[previous_square] = current_piece;
-        NEW_GAME_STATE.board[current_square]  = 0;
+        NEW_GAME_STATE.attacked_squares = G.Utils.attackedSquares(NEW_GAME_STATE);
+        if(kingCheck()){
 
-        return false;
+            NEW_GAME_STATE.board[previous_square] = current_piece;
+            NEW_GAME_STATE.board[current_square]  = 0;
+
+            return false;
+        }
+
     }
+
+
 
 
     if(current_piece == 1 || current_piece == 11){

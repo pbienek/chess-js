@@ -1,5 +1,8 @@
 G.AI = function() {
 
+    var start_time = new Date().getTime();
+
+
     var ii = 0;
 
     var player = G.S.player;
@@ -10,19 +13,24 @@ G.AI = function() {
 
 
 
-    console.log('Positions evaluated ', ii);
-
 
     //Once we're all done, we pass the choosen game state off to this interface
     G.Interface.movePiece(best_pos, best_pos.previous_move.ps, best_pos.previous_move.cs);
 
-    var test_alpha = -100000;
+    var end_time = new Date().getTime();
+    console.log('Positions evaluated : ', ii);
+    console.log('Time Taken :  ', end_time - start_time);
+
+
+
+
+
 
     function getBestMove(){
         var alpha      = -100000;
         var beta       = 100000;
         var depth      = 2;
-        var moves      = evaluate_moves(G.Search(current_state), player);
+        var moves      = evaluate_moves(G.Search(current_state, true), player);
         var best_pos   = {};
         var best_score = -100000;
         var mm = [];
@@ -32,29 +40,47 @@ G.AI = function() {
             var move_score = alphaBeta(moves[i].move, depth, alpha, beta, false);
 
             if(move_score > best_score) {
-                best_score = move_score;
-                best_pos   = moves[i];
-                mm.push({move : moves[i], score : move_score});
+                best_score     = move_score;
+                best_pos       = moves[i];
+                moves[i].score = move_score;
+                mm.push(moves[i]);
             }
-
-//            if(best_score > alpha) {
-//                alpha = best_score;
-//            }
 
         }
 
 
         //console.log(alpha, beta, best_score)
-        //console.log(mm)
+        console.log(mm)
         return best_pos.move;
 
     }
 
 
 
-    function alphaBeta(state, depth, alpha, beta, max_player) {
-        var opponent = G.Utils.opponent(player);
+    function iterativeDeepening(current_state){
 
+        var states           = G.Search(current_state);
+        var evaluated_states = [];
+        var i      = states.length;
+
+        while(i--){
+            var move_score = alphaBeta(states[i], 1, -Infinity, Infinity, false);
+
+            states[i].score = move_score;
+            evaluated_states.push({
+                move  : states[i],
+                score : move_score
+            });
+        }
+
+
+        return evaluated_states.sort(function(a, b){
+            return a.score - b.score;
+        });
+    }
+
+
+    function alphaBeta(state, depth, alpha, beta, max_player) {
 
         if (depth == 0) {
             ii++;

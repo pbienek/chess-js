@@ -1,6 +1,7 @@
-G.Search = function(state){
+G.Search = function(state, king_check){
     "use strict";
 
+    //var king_check         = kc || false;
     var board              = state.board;
     var player             = state.player;
     var opponent           = G.Utils.opponent(player);
@@ -87,7 +88,7 @@ G.Search = function(state){
                     //var tmpBoard        = board;
                     var previous_square = player_pieces[i]['pos'];
                     var current_square  = player_pieces[i]['moves'][m];
-                    var tmp_state       = G.checkMove(previous_square, current_square, state);
+                    var tmp_state       = G.checkMove(previous_square, current_square, state, king_check);
 
                     //If legal move, add to list of possible positions
                     if(tmp_state){
