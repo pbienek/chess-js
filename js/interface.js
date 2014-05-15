@@ -83,7 +83,7 @@ G.Interface = {
             //Check for second click and legal move
             if(legal_squares.indexOf(current_square) > -1){
 
-                var new_state = G.checkMove(previous_square, current_square, G.S);
+                var new_state = G.checkMove(previous_square, current_square, G.S, true);
                 if(new_state){
 
                     G.Interface.movePiece(new_state, previous_square, current_square);
@@ -108,7 +108,7 @@ G.Interface = {
             if(legal_squares.indexOf(current_square) > -1){
 
 
-                var new_state = G.checkMove(previous_square, current_square, G.S);
+                var new_state = G.checkMove(previous_square, current_square, G.S, true);
                 if(new_state){
 
                     G.Interface.movePiece(new_state, previous_square, current_square);

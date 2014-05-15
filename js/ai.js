@@ -14,12 +14,13 @@ G.AI = function() {
 
 
 
+
     //Once we're all done, we pass the choosen game state off to this interface
     G.Interface.movePiece(best_pos, best_pos.previous_move.ps, best_pos.previous_move.cs);
 
     var end_time = new Date().getTime();
-    console.log('Positions evaluated : ', ii);
-    console.log('Time Taken :  ', end_time - start_time);
+    console.log('Positions evaluated : ', ii,'  Time Taken :  ', end_time - start_time, 'Best score: ', best_pos.score);
+
 
 
 
@@ -57,9 +58,9 @@ G.AI = function() {
 
 
 
-    function iterativeDeepening(current_state){
+    function shallowSearch(current_state){
 
-        var states           = G.Search(current_state);
+        var states           = G.Search(current_state, true);
         var evaluated_states = [];
         var i      = states.length;
 
