@@ -76,14 +76,6 @@ G.GameOver = function(winner){
 };
 
 
-window.addEventListener('load', function() {
-    G.init();
-
-    G.Interface.boardSetup(G.board);
-    G.Interface.playerMove();
-});
-
-
 
 
 

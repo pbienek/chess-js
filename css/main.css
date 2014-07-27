@@ -1,0 +1,264 @@
+body {
+    background:#ccc;
+}
+
+
+#game{
+    width:400px;
+    margin:50px auto;
+    background: #3A3C3D;
+    border:1px solid #232729;
+    padding: 0 20px;
+    overflow: hidden;
+}
+#game h3 {
+    color:#8B8B8B;
+    margin: 10px 0;
+    font-weight: normal;
+    float:left;
+}
+#game h3.active{
+    color:#fff;
+}
+
+#pieces{
+    width:400px;
+    height:400px;
+    position:absolute;
+}
+
+#board{
+    width:400px;
+    height:400px;
+    position:relative;
+    clear: both;
+}
+
+#board .square {
+    width: 50px;
+    height: 50px;
+    background:#EBEFF1;
+    float:left;
+    position:relative;
+    /*border-left:1px solid #ffffff;*/
+    /*border-top:1px solid #ffffff;*/
+}
+
+#board .square.black {
+    background:#96B2C2;
+    /*border-right:1px solid #4d758b;*/
+    /*border-bottom:1px solid #4d758b;*/
+    /*border-top:none;*/
+    /*border-left:none;*/
+}
+
+.piece {
+    position: absolute;
+    height:50px;
+    width:50px;
+    z-index:20;
+    transition: all 0.3s;
+}
+
+.piece.active {
+    background-color:yellow;
+}
+
+
+#board .square .highlight{
+    position:absolute;
+    top:0;
+    left:0;
+    width:50px;
+    height:50px;
+    z-index:1;
+    transition: all 0.2s;
+}
+
+#board .square b{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color:rgba(0,0,0,0.5);
+    font-weight: normal;
+    font-size:12px;
+}
+
+#board .square .highlight.active{
+    background:rgb(226,227,71);
+}
+
+#board .square .highlight.legal{
+    background:rgba(226,227,71,0.3);
+}
+.piece.p6 { /*white Pawn*/
+    background:url('../img/sprites.png') 0 0;
+}
+.piece.p5 {/*white knight*/
+    background:url('../img/sprites.png') -50px 0px;
+}
+.piece.p4 {/*white bishop*/
+    background:url('../img/sprites.png') -100px 0;
+}
+.piece.p3 {/*white rook*/
+    background:url('../img/sprites.png') -150px 0;
+}
+.piece.p2 {/*white queen*/
+    background:url('../img/sprites.png') -200px 0;
+}
+.piece.p1 {/*white king*/
+    background:url('../img/sprites.png') -250px 0;
+}
+
+.piece.p16 { /*black Pawn*/
+    background:url('../img/sprites.png') 0 -50px;
+}
+.piece.p15 {/**black knight*/
+    background:url('../img/sprites.png') -50px -50px;
+}
+.piece.p14 {/**black bishop*/
+    background:url('../img/sprites.png') -100px -50px;
+}
+.piece.p13 {/**black rook*/
+    background:url('../img/sprites.png') -150px -50px;
+}
+.piece.p12 {/**black queen*/
+    background:url('../img/sprites.png') -200px -50px;
+}
+.piece.p11 {/**black king*/
+    background:url('../img/sprites.png') -250px -50px;
+}
+
+
+
+
+
+/* CODE FOR ThINKinG ANIMATION FROM http://codepen.io/TaniaLD/pen/oKxep */
+
+/* -------------- loader9 -------------- */
+
+.loader9:before{
+    content: "";
+    position: absolute;
+    top: 0px;
+    height: 12px;
+    width: 12px;
+    border-radius: 12px;
+    -webkit-animation: loader9g 2s ease-in-out infinite;
+    animation: loader10g 2s ease-in-out infinite;
+}
+
+.loader9{
+    position: relative;
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    background-color: #fff;
+    float: left;
+    margin: 15px 0 0 30px;
+    display:none;
+}
+.loader9.active {
+    display:block;
+}
+
+.loader9:after{
+    content: "";
+    position: absolute;
+    top: 0px;
+    height: 12px;
+    width: 12px;
+    border-radius: 12px;
+    -webkit-animation: loader9d 2s ease-in-out infinite;
+    animation: loader9d 2s ease-in-out infinite;
+}
+
+@-webkit-keyframes loader9g{
+    0%{	left: -15px; background-color: rgba(255, 255, 255, .8); }
+    50%{ left: 0px; background-color: rgba(255, 255, 255, .1);}
+    100%{ left:-15px; background-color: rgba(255, 255, 255, .8); }
+}
+@keyframes loader9g{
+    0%{	left: -15px; background-color: rgba(255, 255, 255, .8); }
+    50%{ left: 0px; background-color: rgba(255, 255, 255, .1);}
+    100%{ left:-15px; background-color: rgba(255, 255, 255, .8); }
+}
+
+
+@-webkit-keyframes loader9d{
+    0%{	left: 15px; background-color: rgba(255, 255, 255, .8); }
+    50%{ left: 0px; background-color: rgba(255, 255, 255, .1);}
+    100%{ left:15px; background-color: rgba(255, 255, 255, .8); }
+}
+@keyframes loader9d{
+    0%{	left: 15px; background-color: rgba(255, 255, 255, .8); }
+    50%{ left: 0px; background-color: rgba(255, 255, 255, .1);}
+    100%{ left:15px; background-color: rgba(255, 255, 255, .8); }
+}
+/* -------------- Clock -------------- */
+
+.clock{
+    border-radius: 100%;
+    border: 2px solid #fff;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    float: left;
+    margin: 7px;
+    display:none;
+}
+.clock.active {
+    display:block;
+}
+.clock:after{
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    top:0;
+    left: 48%;
+    height: 10px;
+    width: 2px;
+    border-radius: 5px;
+    -webkit-transform-origin: 50% 97%;
+    transform-origin: 50% 97%;
+    -webkit-animation: grdAiguille 2s linear infinite;
+    animation: grdAiguille 2s linear infinite;
+}
+
+@-webkit-keyframes grdAiguille{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}
+
+@keyframes grdAiguille{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
+.clock:before{
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    top:3px;
+    left: 48%;
+    height: 7px;
+    width: 2px;
+    border-radius: 5px;
+    -webkit-transform-origin: 50% 94%;
+    transform-origin: 50% 94%;
+    -webkit-animation: ptAiguille 12s linear infinite;
+    animation: ptAiguille 12s linear infinite;
+}
+
+@-webkit-keyframes ptAiguille{
+    0%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(360deg);}
+}
+
+@keyframes ptAiguille{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
+
+
+
+

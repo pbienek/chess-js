@@ -81,6 +81,26 @@ G.AI = function() {
     }
 
 
+
+//    function negamax(state, depth){
+//        if (depth == 0) {
+//            ii++;
+//            var score = G.EvaluateBoard(state, player) - current_score;
+//            //console.log(score)
+//            return  score;
+//        } else {
+//
+//            var child_states = G.Search(state);
+//            var i = child_states.length;
+//
+//            while (i--) {
+//
+//                negamax(child_states[i], (depth - 1));
+//            }
+//        }
+//    }
+
+
     function alphaBeta(state, depth, alpha, beta, max_player) {
 
         if (depth == 0) {

@@ -128,6 +128,9 @@ G.Interface = {
 
     movePiece : function(state, previous_square, current_square){
 
+        //Set thinking icon
+        $('.clock, .player').toggleClass('active');
+
         //remove piece for current square and next
         $('[data-psquare='+current_square+']').fadeOut(300, function(){
             this.remove();

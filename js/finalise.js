@@ -22,4 +22,5 @@ G.Finalise = function(state){
 
     G.S.legal_moves      = [];
     G.S.attacked_squares = G.Utils.attackedSquares(state);
+
 };
